@@ -1,0 +1,944 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="NAVER GFA · Kakao Display 8개 DA 구좌 규격과 세이프존 원문을 반영한 Alibaba.com 소재 템플릿 스튜디오 (한국어/中文)" />
+  <title>NAVER × Kakao DA 소재 템플릿 스튜디오</title>
+  <style>
+    :root {
+      --brand: #ff6a00;
+      --brand-strong: #e85d00;
+      --brand-soft: #fff1e8;
+      --ink: #171717;
+      --muted: #6f6f73;
+      --muted-2: #96969b;
+      --line: #e7e7e9;
+      --surface: #ffffff;
+      --surface-2: #f7f7f8;
+      --danger: #d92d20;
+      --success: #067647;
+      --radius-sm: 10px;
+      --radius: 16px;
+      --radius-lg: 24px;
+      --shadow: 0 18px 50px rgba(27, 22, 18, .10);
+      --shadow-soft: 0 8px 24px rgba(27, 22, 18, .07);
+      --transition: 180ms cubic-bezier(.2,.8,.2,1);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--ink);
+      background: var(--surface-2);
+      font-family: Pretendard, "Noto Sans KR", "Noto Sans SC", "Microsoft YaHei", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.45;
+    }
+    button, input, select, textarea { font: inherit; }
+    button { cursor: pointer; }
+    :focus-visible { outline: 3px solid rgba(255,106,0,.28); outline-offset: 2px; }
+    .icon { width: 18px; height: 18px; flex: 0 0 auto; }
+    .app { min-height: 100vh; }
+    .topbar {
+      height: 68px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      color: var(--surface);
+      background: rgba(23,23,23,.96);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .brand { display: flex; align-items: center; gap: 13px; min-width: 0; }
+    .brand-mark {
+      width: 34px; height: 34px; border-radius: 11px;
+      display: grid; place-items: center;
+      font-weight: 900; font-size: 21px;
+      color: var(--surface); background: var(--brand);
+      box-shadow: 0 0 0 5px rgba(255,106,0,.12);
+    }
+    .brand-title { font-size: 15px; font-weight: 800; letter-spacing: -.02em; }
+    .brand-sub { margin-top: 1px; color: #aaa; font-size: 11px; }
+    .top-actions { display: flex; align-items: center; gap: 10px; }
+    .lang-tabs {
+      display: flex; gap: 3px; padding: 3px;
+      border: 1px solid rgba(255,255,255,.14); border-radius: 999px; background: rgba(255,255,255,.06);
+    }
+    .lang-tab {
+      min-width: 62px; padding: 6px 13px; border: 0; border-radius: 999px;
+      color: #cfcfcf; background: transparent; font-size: 12px; font-weight: 800; transition: var(--transition);
+    }
+    .lang-tab:hover { color: var(--surface); }
+    .lang-tab.active { color: #1b1b1b; background: var(--surface); box-shadow: 0 2px 8px rgba(0,0,0,.28); }
+    .guide-banner {
+      padding: 16px 24px 18px;
+      border-bottom: 1px solid #ffd9c2;
+      background: linear-gradient(180deg,#fff8f3 0%,#fffdfb 100%);
+    }
+    .guide-banner-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    .guide-banner-right { display: flex; align-items: center; gap: 12px; }
+    .guide-fold {
+      padding: 6px 11px; border: 1px solid #ffcfae; border-radius: 999px;
+      color: var(--brand-strong); background: var(--surface); font-size: 11px; font-weight: 850; transition: var(--transition);
+    }
+    .guide-fold:hover { background: var(--brand-soft); }
+    .guide-banner.folded .guide-chip-row, .guide-banner.folded .guide-cols { display: none; }
+    .guide-banner-title { margin: 0; font-size: 15px; font-weight: 900; letter-spacing: -.02em; color: var(--brand-strong); }
+    .guide-banner-slot { font-size: 13px; font-weight: 800; color: var(--ink); }
+    .guide-source { color: var(--muted-2); font-size: 11px; font-weight: 650; }
+    .guide-chip-row { margin-top: 11px; display: grid; grid-template-columns: repeat(auto-fit,minmax(140px,1fr)); gap: 8px; }
+    .guide-chip { padding: 9px 12px; border: 1px solid #ffd9c2; border-radius: 11px; background: var(--surface); }
+    .guide-chip-label { color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: .04em; }
+    .guide-chip-value { margin-top: 2px; font-size: 13px; font-weight: 850; }
+    .guide-cols { margin-top: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .guide-col { padding: 11px 13px; border: 1px solid #ffe1cd; border-radius: 12px; background: var(--surface); }
+    .guide-col-title { margin-bottom: 6px; display: flex; align-items: center; gap: 6px; color: var(--brand-strong); font-size: 11px; font-weight: 900; }
+    .guide-col ul { margin: 0; padding-left: 16px; color: #5d5550; font-size: 11.5px; }
+    .guide-col li + li { margin-top: 4px; }
+    .guide-col .none { color: var(--muted-2); font-size: 11.5px; font-weight: 650; }
+    .layout { min-height: calc(100vh - 68px); display: grid; grid-template-columns: 284px minmax(420px,1fr) 344px; }
+    .sidebar, .inspector { background: var(--surface); }
+    .sidebar { border-right: 1px solid var(--line); }
+    .inspector { border-left: 1px solid var(--line); }
+    .panel-inner { padding: 20px; }
+    .sidebar .panel-inner, .inspector .panel-inner { position: sticky; top: 68px; max-height: calc(100vh - 68px); overflow: auto; }
+    .eyebrow { color: var(--brand-strong); font-size: 11px; font-weight: 800; letter-spacing: .10em; text-transform: uppercase; }
+    .section-title { margin: 4px 0 14px; font-size: 17px; letter-spacing: -.03em; }
+    .segmented {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 4px;
+      padding: 4px; margin-bottom: 17px; border-radius: 12px; background: var(--surface-2);
+    }
+    .segment { border: 0; padding: 8px 4px; border-radius: 9px; color: var(--muted); background: transparent; font-size: 12px; font-weight: 700; transition: var(--transition); }
+    .segment:hover { color: var(--ink); }
+    .segment.active { color: var(--ink); background: var(--surface); box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+    .format-list { display: grid; gap: 8px; }
+    .format-card {
+      width: 100%; padding: 13px; display: grid; grid-template-columns: 38px 1fr auto; align-items: center; gap: 11px;
+      text-align: left; color: inherit; background: var(--surface); border: 1px solid var(--line); border-radius: 13px; transition: var(--transition);
+    }
+    .format-card:hover { border-color: #ccc; transform: translateY(-1px); box-shadow: var(--shadow-soft); }
+    .format-card.active { border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-soft); }
+    .format-thumb { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 10px; background: var(--surface-2); }
+    .mini-ratio { max-width: 25px; max-height: 25px; min-width: 9px; min-height: 9px; border: 2px solid currentColor; border-radius: 3px; color: var(--muted-2); }
+    .format-name { display: block; font-size: 12px; font-weight: 800; line-height: 1.25; }
+    .format-meta { display: block; margin-top: 3px; color: var(--muted); font-size: 11px; }
+    .platform-badge { align-self: start; padding: 3px 6px; border-radius: 6px; color: var(--muted); background: var(--surface-2); font-size: 9px; font-weight: 800; }
+    .platform-badge.naver { color: #008c3c; background: #eafaf1; }
+    .platform-badge.kakao { color: #665d00; background: #fff9c7; }
+    .source-note { margin-top: 16px; padding: 12px; border-radius: 12px; color: var(--muted); background: var(--surface-2); font-size: 11px; }
+    .workspace { min-width: 0; padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+    .workspace-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+    .workspace h1 { margin: 0; font-size: clamp(20px,2vw,28px); letter-spacing: -.04em; }
+    .workspace-desc { margin: 5px 0 0; color: var(--muted); font-size: 13px; }
+    .toolbar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+    .btn {
+      min-height: 38px; padding: 8px 12px; display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+      border: 1px solid var(--line); border-radius: 10px; color: var(--ink); background: var(--surface); font-size: 12px; font-weight: 800; transition: var(--transition);
+    }
+    .btn:hover { transform: translateY(-1px); border-color: #c9c9cc; box-shadow: var(--shadow-soft); }
+    .btn.primary { color: var(--surface); border-color: var(--brand); background: var(--brand); }
+    .btn.primary:hover { background: var(--brand-strong); }
+    .btn.ghost { background: transparent; }
+    .btn:disabled { opacity: .42; cursor: not-allowed; transform: none; box-shadow: none; }
+    .canvas-stage {
+      min-height: 500px; flex: 1; position: relative; display: grid; place-items: center;
+      overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-lg);
+      background-color: #ececef;
+      background-image: linear-gradient(45deg,#e1e1e4 25%,transparent 25%),linear-gradient(-45deg,#e1e1e4 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#e1e1e4 75%),linear-gradient(-45deg,transparent 75%,#e1e1e4 75%);
+      background-size: 24px 24px; background-position: 0 0,0 12px,12px -12px,-12px 0;
+      box-shadow: inset 0 0 70px rgba(0,0,0,.045);
+    }
+    .canvas-wrap { max-width: calc(100% - 56px); max-height: 640px; display: flex; align-items: center; justify-content: center; filter: drop-shadow(0 24px 34px rgba(0,0,0,.20)); }
+    canvas { display: block; max-width: 100%; max-height: 620px; background: transparent; outline: 1px solid rgba(0,0,0,.12); }
+    .canvas-chip {
+      position: absolute; left: 16px; bottom: 16px; display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 11px; border: 1px solid rgba(255,255,255,.6); border-radius: 10px;
+      color: #444; background: rgba(255,255,255,.82); backdrop-filter: blur(10px); font-size: 11px; font-weight: 700;
+    }
+    .spec-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
+    .spec { padding: 12px 14px; border: 1px solid var(--line); border-radius: 13px; background: var(--surface); }
+    .spec-label { color: var(--muted); font-size: 10px; font-weight: 700; }
+    .spec-value { margin-top: 3px; font-size: 13px; font-weight: 850; }
+    .accordion { border-top: 1px solid var(--line); }
+    .accordion:first-of-type { border-top: 0; }
+    .accordion-head { width: 100%; padding: 15px 0; display: flex; align-items: center; justify-content: space-between; border: 0; color: inherit; background: transparent; font-size: 13px; font-weight: 850; }
+    .accordion-body { padding: 0 0 18px; }
+    .field { margin-bottom: 13px; }
+    .field:last-child { margin-bottom: 0; }
+    .field label, .label { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; color: #45454a; font-size: 11px; font-weight: 800; }
+    .field-hint { color: var(--muted-2); font-weight: 600; }
+    .input, .select, .textarea {
+      width: 100%; border: 1px solid var(--line); border-radius: 10px; color: var(--ink); background: var(--surface); transition: var(--transition);
+    }
+    .input, .select { height: 40px; padding: 0 11px; }
+    .textarea { min-height: 76px; padding: 10px 11px; resize: vertical; }
+    .input:focus, .select:focus, .textarea:focus { border-color: var(--brand); outline: 3px solid var(--brand-soft); }
+    .upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .upload-label {
+      min-height: 76px; padding: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+      border: 1px dashed #c9c9cc; border-radius: 12px; color: var(--muted); background: var(--surface-2); text-align: center; font-size: 10px; font-weight: 750; cursor: pointer; transition: var(--transition);
+    }
+    .upload-label:hover, .upload-label:focus-within { color: var(--brand-strong); border-color: var(--brand); background: var(--brand-soft); }
+    .upload-label input { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .color-row { display: flex; gap: 8px; }
+    .color-input { width: 42px; height: 40px; padding: 4px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+    .range { width: 100%; accent-color: var(--brand); }
+    .style-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; }
+    .style-button { padding: 9px 4px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); font-size: 10px; font-weight: 800; }
+    .style-button.active { color: var(--brand-strong); border-color: var(--brand); background: var(--brand-soft); }
+    .toggle-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .switch { width: 42px; height: 24px; padding: 3px; border: 0; border-radius: 999px; background: #d7d7da; transition: var(--transition); }
+    .switch::after { content: ""; display: block; width: 18px; height: 18px; border-radius: 50%; background: var(--surface); box-shadow: 0 2px 5px rgba(0,0,0,.18); transition: var(--transition); }
+    .switch.on { background: var(--brand); }
+    .switch.on::after { transform: translateX(18px); }
+    .guide-box { padding: 13px; border: 1px solid #ffd6bf; border-radius: 12px; background: #fff8f3; }
+    .guide-title { margin-bottom: 7px; display: flex; align-items: center; gap: 7px; color: var(--brand-strong); font-size: 11px; font-weight: 850; }
+    .guide-list { margin: 0; padding-left: 16px; color: #60554f; font-size: 11px; }
+    .guide-list li + li { margin-top: 5px; }
+    .export-block { display: grid; gap: 8px; }
+    .export-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .size-status { min-height: 32px; padding: 8px 10px; border-radius: 9px; color: var(--muted); background: var(--surface-2); font-size: 10px; }
+    .size-status.ok { color: var(--success); background: #ecfdf3; }
+    .size-status.bad { color: var(--danger); background: #fff1f0; }
+    .toast {
+      position: fixed; left: 50%; bottom: 26px; z-index: 90; padding: 11px 16px; border-radius: 11px;
+      color: var(--surface); background: var(--ink); box-shadow: var(--shadow); font-size: 12px; font-weight: 750;
+      opacity: 0; transform: translate(-50%,16px); pointer-events: none; transition: var(--transition);
+    }
+    .toast.show { opacity: 1; transform: translate(-50%,0); }
+    .mobile-formats { display: none; }
+    @media (max-width: 1180px) {
+      .guide-banner { position: static; }
+      .guide-cols { grid-template-columns: 1fr; }
+      .layout { grid-template-columns: 250px minmax(400px,1fr); }
+      .inspector { grid-column: 1 / -1; border-left: 0; border-top: 1px solid var(--line); }
+      .inspector .panel-inner { position: static; max-height: none; display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0 28px; }
+      .inspector .section-title, .inspector .eyebrow { grid-column: 1/-1; }
+    }
+    @media (max-width: 760px) {
+      .topbar { height: 60px; padding: 0 15px; }
+      .brand-sub { display: none; }
+      .lang-tab { min-width: 50px; padding: 6px 9px; }
+      .guide-banner { padding: 14px 15px 16px; }
+      .layout { display: block; }
+      .sidebar { display: none; }
+      .workspace { padding: 16px; }
+      .workspace-head { display: block; }
+      .toolbar { margin-top: 12px; justify-content: flex-start; }
+      .mobile-formats { display: block; margin-bottom: 2px; }
+      .canvas-stage { min-height: 410px; border-radius: var(--radius); }
+      .canvas-wrap { max-width: calc(100% - 28px); }
+      canvas { max-height: 380px; }
+      .spec-bar { grid-template-columns: 1fr 1fr; }
+      .inspector .panel-inner { padding: 18px 16px; display: block; }
+      .export-grid { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition: none !important; } }
+  </style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">A</div>
+      <div>
+        <div class="brand-title" data-i18n="brandTitle">Creative Template Studio</div>
+        <div class="brand-sub" data-i18n="brandSub">Alibaba.com · NAVER × Kakao DA 8개 구좌</div>
+      </div>
+    </div>
+    <div class="top-actions">
+      <div class="lang-tabs" id="langTabs" role="tablist" aria-label="Language">
+        <button class="lang-tab active" data-lang="ko" type="button" role="tab" aria-selected="true">한국어</button>
+        <button class="lang-tab" data-lang="zh" type="button" role="tab" aria-selected="false">中文</button>
+      </div>
+      <button class="btn primary" id="topDownload" type="button" data-i18n="savePng">PNG 저장</button>
+    </div>
+  </header>
+
+  <section class="guide-banner" aria-labelledby="guideBannerTitle">
+    <div class="guide-banner-head">
+      <div>
+        <h2 class="guide-banner-title" id="guideBannerTitle"><span data-i18n="guideBannerTitle">구좌별 제작 가이드</span> · <span class="guide-banner-slot" id="guideSlotName">NAVER GFA Native Image</span></h2>
+      </div>
+      <div class="guide-banner-right">
+        <div class="guide-source" data-i18n="guideSource">원본: Alibaba.com_네카오 소재 제작 가이드_260828.xlsx · KOP 시트 DA(image banner)</div>
+        <button class="guide-fold" id="guideFold" type="button" aria-expanded="true" data-i18n="foldHide">가이드 접기</button>
+      </div>
+    </div>
+    <div class="guide-chip-row">
+      <div class="guide-chip"><div class="guide-chip-label" data-i18n="chipMedia">MEDIA</div><div class="guide-chip-value" id="chipMedia">Naver GFA</div></div>
+      <div class="guide-chip"><div class="guide-chip-label" data-i18n="chipProduct">PRODUCT TYPE</div><div class="guide-chip-value" id="chipProduct">Native Image</div></div>
+      <div class="guide-chip"><div class="guide-chip-label" data-i18n="chipSize">CREATIVE SIZE</div><div class="guide-chip-value" id="chipSize">1200 × 1200 px</div></div>
+      <div class="guide-chip"><div class="guide-chip-label" data-i18n="chipFile">FILE SIZE</div><div class="guide-chip-value" id="chipFile">800 kb</div></div>
+      <div class="guide-chip"><div class="guide-chip-label" data-i18n="chipFormat">FILE FORMAT</div><div class="guide-chip-value" id="chipFormat">jpg, png</div></div>
+      <div class="guide-chip"><div class="guide-chip-label" data-i18n="chipText">TEXT IN IMAGE</div><div class="guide-chip-value" id="chipText">제한 명시 없음</div></div>
+    </div>
+    <div class="guide-cols">
+      <div class="guide-col">
+        <div class="guide-col-title" data-i18n="guideLine">GUIDE LINE</div>
+        <ul id="bannerGuideList"></ul>
+        <div class="none" id="bannerGuideNone" hidden data-i18n="noRule">원문 표기 “-” · 별도 제작 제한 명시 없음</div>
+      </div>
+      <div class="guide-col">
+        <div class="guide-col-title" data-i18n="safeZone">SAFE ZONE</div>
+        <ul id="bannerSafeList"></ul>
+        <div class="none" id="bannerSafeNone" hidden data-i18n="noSafe">원문에 세이프존 규정 없음</div>
+      </div>
+    </div>
+  </section>
+
+  <main class="layout">
+    <aside class="sidebar" aria-label="placement">
+      <div class="panel-inner">
+        <div class="eyebrow">01 · Placement</div>
+        <h2 class="section-title" data-i18n="placementTitle">광고 구좌 선택</h2>
+        <div class="segmented" id="platformFilter" role="tablist">
+          <button class="segment active" data-filter="all" type="button" role="tab" aria-selected="true" data-i18n="filterAll">전체</button>
+          <button class="segment" data-filter="NAVER" type="button" role="tab" aria-selected="false">NAVER</button>
+          <button class="segment" data-filter="Kakao" type="button" role="tab" aria-selected="false">Kakao</button>
+        </div>
+        <div class="format-list" id="formatList"></div>
+        <div class="source-note" data-i18n="sourceNote">DA(image banner) 8개 구좌만 제공합니다. 원문에 없는 규정은 추가하지 않았습니다.</div>
+      </div>
+    </aside>
+
+    <section class="workspace" aria-labelledby="pageTitle">
+      <div class="mobile-formats">
+        <label class="label" for="mobileSlot" data-i18n="placementTitle">광고 구좌 선택</label>
+        <select class="select" id="mobileSlot"></select>
+      </div>
+      <div class="workspace-head">
+        <div>
+          <h1 id="pageTitle">NAVER GFA Native Image</h1>
+          <p class="workspace-desc" id="pageDesc"></p>
+        </div>
+        <div class="toolbar">
+          <button class="btn ghost" id="safeToggle" type="button" aria-pressed="true" data-i18n="safeShow">세이프존 표시</button>
+          <button class="btn ghost" id="resetBtn" type="button" data-i18n="reset">초기화</button>
+          <button class="btn" id="copyBrief" type="button" data-i18n="copyBrief">제작 지시문 복사</button>
+        </div>
+      </div>
+
+      <div class="canvas-stage" id="canvasStage">
+        <div class="canvas-wrap"><canvas id="adCanvas" width="1200" height="1200" aria-label="preview"></canvas></div>
+        <div class="canvas-chip" id="canvasChip">1200 × 1200 px</div>
+      </div>
+
+      <div class="spec-bar">
+        <div class="spec"><div class="spec-label">PLATFORM</div><div class="spec-value" id="specPlatform">NAVER</div></div>
+        <div class="spec"><div class="spec-label">SIZE</div><div class="spec-value" id="specSize">1200 × 1200 px</div></div>
+        <div class="spec"><div class="spec-label">MAX FILE</div><div class="spec-value" id="specMax">800 KB</div></div>
+        <div class="spec"><div class="spec-label">FORMAT</div><div class="spec-value" id="specFormat">JPG / PNG</div></div>
+      </div>
+    </section>
+
+    <aside class="inspector" aria-label="customize">
+      <div class="panel-inner">
+        <div class="eyebrow">02 · Customize</div>
+        <h2 class="section-title" data-i18n="customizeTitle">소재 편집</h2>
+
+        <section class="accordion">
+          <button class="accordion-head" type="button" aria-expanded="true"><span data-i18n="accImage">이미지 &amp; 로고</span> <span>−</span></button>
+          <div class="accordion-body">
+            <div class="upload-grid">
+              <label class="upload-label">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 16l4-4 3 3 3-4 6 7"/><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8" cy="8" r="1.5"/></svg>
+                <span data-i18n="uploadBg">배경 이미지 업로드</span>
+                <input id="bgUpload" type="file" accept="image/png,image/jpeg" />
+              </label>
+              <label class="upload-label">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 14v5h14v-5"/></svg>
+                <span data-i18n="uploadLogo">로고 PNG 업로드</span>
+                <input id="logoUpload" type="file" accept="image/png,image/jpeg" />
+              </label>
+            </div>
+            <div class="field" style="margin-top:12px">
+              <label for="imageFit" data-i18n="imageFit">배경 맞춤</label>
+              <select class="select" id="imageFit"><option value="cover" data-i18n="fitCover">채우기</option><option value="contain" data-i18n="fitContain">전체 보기</option></select>
+            </div>
+          </div>
+        </section>
+
+        <section class="accordion">
+          <button class="accordion-head" type="button" aria-expanded="true"><span data-i18n="accCopy">카피</span> <span>−</span></button>
+          <div class="accordion-body">
+            <div class="field">
+              <label for="copyPreset" data-i18n="copyPreset">카피 프리셋 (세트 05–12)</label>
+              <select class="select" id="copyPreset"></select>
+            </div>
+            <div class="field">
+              <label for="tagline"><span data-i18n="tagline">태그 라인</span></label>
+              <input class="input" id="tagline" maxlength="40" />
+            </div>
+            <div class="field">
+              <label for="headline"><span data-i18n="headline">메인 카피</span> <span class="field-hint" id="headlineCount"></span></label>
+              <textarea class="textarea" id="headline" maxlength="72"></textarea>
+            </div>
+            <div class="field">
+              <label for="subline"><span data-i18n="subline">서브 카피</span> <span class="field-hint" id="sublineCount"></span></label>
+              <input class="input" id="subline" maxlength="80" />
+            </div>
+            <div class="field">
+              <label for="cta">CTA</label>
+              <input class="input" id="cta" maxlength="24" />
+            </div>
+            <div class="toggle-row">
+              <span class="label" style="margin:0" data-i18n="textShow">텍스트 표시</span>
+              <button class="switch on" id="textToggle" type="button" role="switch" aria-checked="true"></button>
+            </div>
+          </div>
+        </section>
+
+        <section class="accordion">
+          <button class="accordion-head" type="button" aria-expanded="true"><span data-i18n="accStyle">스타일</span> <span>−</span></button>
+          <div class="accordion-body">
+            <div class="field">
+              <div class="label" data-i18n="layout">레이아웃</div>
+              <div class="style-grid" role="group">
+                <button class="style-button active" data-style="editorial" type="button" aria-pressed="true">Editorial</button>
+                <button class="style-button" data-style="split" type="button" aria-pressed="false">Split</button>
+                <button class="style-button" data-style="minimal" type="button" aria-pressed="false">Minimal</button>
+              </div>
+            </div>
+            <div class="row-2">
+              <div class="field">
+                <label for="bgColor" data-i18n="bgColor">배경색</label>
+                <div class="color-row"><input class="color-input" id="bgColor" type="color" value="#ffffff" /><input class="input" id="bgHex" value="#FFFFFF" maxlength="7" /></div>
+              </div>
+              <div class="field">
+                <label for="textColor" data-i18n="textColor">글자색</label>
+                <div class="color-row"><input class="color-input" id="textColor" type="color" value="#171717" /><input class="input" id="textHex" value="#171717" maxlength="7" /></div>
+              </div>
+            </div>
+            <div class="field">
+              <label for="fontSize"><span data-i18n="fontSize">메인 카피 크기</span> <span class="field-hint" id="fontSizeValue">72px</span></label>
+              <input class="range" id="fontSize" type="range" min="24" max="180" value="72" />
+            </div>
+            <div class="row-2">
+              <div class="field"><label for="align" data-i18n="align">정렬</label><select class="select" id="align"><option value="left" data-i18n="alignLeft">왼쪽</option><option value="center" data-i18n="alignCenter">가운데</option></select></div>
+              <div class="field"><label for="overlay" data-i18n="overlay">이미지 음영</label><select class="select" id="overlay"><option value="0" data-i18n="ovNone">없음</option><option value="0.18" data-i18n="ovSoft">약하게</option><option value="0.35" data-i18n="ovStrong">강하게</option></select></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="accordion">
+          <button class="accordion-head" type="button" aria-expanded="true"><span data-i18n="accGuide">가이드 체크리스트</span> <span>−</span></button>
+          <div class="accordion-body">
+            <div class="guide-box">
+              <div class="guide-title" data-i18n="checklist">선택 구좌 체크리스트</div>
+              <ul class="guide-list" id="guideList"></ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="accordion">
+          <button class="accordion-head" type="button" aria-expanded="true"><span data-i18n="accExport">내보내기</span> <span>−</span></button>
+          <div class="accordion-body export-block">
+            <div class="size-status" id="sizeStatus"></div>
+            <div class="export-grid">
+              <button class="btn primary" id="downloadPng" type="button" data-i18n="savePng">PNG 저장</button>
+              <button class="btn" id="downloadJpg" type="button" data-i18n="saveJpg">JPG 저장</button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </aside>
+  </main>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+  'use strict';
+
+  const NO_RULE = { ko: [], zh: [] };
+
+  const slots = [
+    {
+      id:'naver-native-square', platform:'NAVER', media:'Naver GFA', product:{ko:'Native Image',zh:'Native Image'},
+      name:{ko:'NAVER Native Square',zh:'NAVER 原生方形'}, w:1200, h:1200, maxKB:800, maxLabel:'800 kb', formats:['JPG','PNG'],
+      textRule:{ko:'제한 명시 없음',zh:'未标注限制'}, guides:NO_RULE, safeText:NO_RULE
+    },
+    {
+      id:'naver-native-portrait', platform:'NAVER', media:'Naver GFA', product:{ko:'Native Image',zh:'Native Image'},
+      name:{ko:'NAVER Native Portrait',zh:'NAVER 原生竖版'}, w:1200, h:1800, maxKB:1229, maxLabel:'1.2 mb', formats:['JPG','PNG'],
+      textRule:{ko:'제한 명시 없음',zh:'未标注限制'}, guides:NO_RULE, safeText:NO_RULE
+    },
+    {
+      id:'naver-native-wide', platform:'NAVER', media:'Naver GFA', product:{ko:'Native Image',zh:'Native Image'},
+      name:{ko:'NAVER Native Wide',zh:'NAVER 原生横版'}, w:1200, h:628, maxKB:500, maxLabel:'500 kb', formats:['JPG','PNG'],
+      textRule:{ko:'제한 명시 없음',zh:'未标注限制'}, guides:NO_RULE, safeText:NO_RULE
+    },
+    {
+      id:'naver-native-thumb', platform:'NAVER', media:'Naver GFA', product:{ko:'Native Image',zh:'Native Image'},
+      name:{ko:'NAVER Native Thumbnail',zh:'NAVER 原生缩略图'}, w:342, h:228, maxKB:130, maxLabel:'130 kb', formats:['JPG','PNG'],
+      defaultText:false, textRule:{ko:'썸네일 이미지 형태',zh:'缩略图形式'},
+      guides:{ ko:['썸네일 이미지 형태'], zh:['缩略图形式的图片'] }, safeText:NO_RULE
+    },
+    {
+      id:'kakao-display-square', platform:'Kakao', media:'KaKao', product:{ko:'Display',zh:'Display'},
+      name:{ko:'Kakao Display Square',zh:'Kakao 展示方形'}, w:500, h:500, maxKB:500, maxLabel:'500 kb', formats:['JPG','PNG'],
+      textRule:{ko:'제한 명시 없음',zh:'未标注限制'}, guides:NO_RULE, safeText:NO_RULE
+    },
+    {
+      id:'kakao-display-story', platform:'Kakao', media:'KaKao', product:{ko:'Display',zh:'Display'},
+      name:{ko:'Kakao Display Story',zh:'Kakao 展示故事版'}, w:720, h:1280, maxKB:500, maxLabel:'500 kb', formats:['JPG','PNG'],
+      safe:{t:89,r:47,b:89,l:47,ui:true}, textRule:{ko:'제한 명시 없음',zh:'未标注限制'},
+      guides:{
+        ko:['세이프존을 고려한 이미지 구성 필요','투명 및 강한 형광색 배경 활용 불가'],
+        zh:['需按安全区进行图片构图','不可使用透明及高饱和荧光色背景']
+      },
+      safeText:{
+        ko:['주요 요소(텍스트, 로고, 메인 오브젝트 등)는 상/하 89px 및 좌/우측 47px 영역이 아닌 중앙 영역에 배치하도록 제작 필요','이미지 우측 하단의 경우 UI 광고 요소에 가려질 가능성이 있어 주요 요소 배치 미사용 권장'],
+        zh:['主要元素（文字、Logo、主体物等）需避开上/下89px与左/右47px区域，置于中央区域','图片右下角可能被广告UI元素遮挡，建议不放置主要元素']
+      }
+    },
+    {
+      id:'kakao-display-vertical', platform:'Kakao', media:'KaKao', product:{ko:'Display',zh:'Display'},
+      name:{ko:'Kakao Display Vertical',zh:'Kakao 展示纵版'}, w:800, h:1000, maxKB:500, maxLabel:'500 kb', formats:['JPG','PNG'],
+      safe:{t:100,r:0,b:100,l:40,ui:true}, textRange:[48,164], textRule:{ko:'최소 48px ~ 최대 164px',zh:'最小48px～最大164px'},
+      guides:{
+        ko:['세이프존을 고려한 이미지 구성 필요','투명 및 강한 형광색 배경 활용 불가','이미지 내 텍스트는 최소 48px~최대 164px'],
+        zh:['需按安全区进行图片构图','不可使用透明及高饱和荧光色背景','图内文字最小48px～最大164px']
+      },
+      safeText:{
+        ko:['주요 요소(텍스트, 로고, 메인 오브젝트 등)는 상/하 100px 및 좌측 40px 영역이 아닌 중앙 영역에 배치하도록 제작','이미지 우측 하단의 경우 UI 광고 요소에 가려질 가능성이 있어 주요 요소 배치 미사용 권장'],
+        zh:['主要元素（文字、Logo、主体物等）需避开上/下100px与左侧40px区域，置于中央区域','图片右下角可能被广告UI元素遮挡，建议不放置主要元素']
+      }
+    },
+    {
+      id:'kakao-display-wide', platform:'Kakao', media:'KaKao', product:{ko:'Display',zh:'Display'},
+      name:{ko:'Kakao Display Wide',zh:'Kakao 展示横版'}, w:1200, h:600, maxKB:500, maxLabel:'500 kb', formats:['JPG','PNG'],
+      safe:{t:89,r:47,b:90,l:47,ui:true}, textRange:[48,164], maxLines:3,
+      textRule:{ko:'최소 48px ~ 최대 164px · 최대 3줄',zh:'最小48px～最大164px · 最多3行'},
+      guides:{
+        ko:['세이프존을 고려한 이미지 구성 필요','투명도 있는 이미지 사용 불가, 강한 형광색 컬러 배경 사용 불가','이미지 내 텍스트는 최소 48px~최대 164px, 최대 3줄까지 구성 가능','이미지 내 텍스트의 경우 4가지 이상의 폰트 스타일과 컬러 구성 불가','분할 이미지 활용 시 이미지 내 텍스트 미사용 권장'],
+        zh:['需按安全区进行图片构图','不可使用带透明度的图片，不可使用高饱和荧光色背景','图内文字最小48px～最大164px，最多3行','图内文字不可使用4种以上字体样式与颜色','使用分割图片时建议不使用图内文字']
+      },
+      safeText:{
+        ko:['주요 요소(텍스트, 로고, 메인 오브젝트 등)는 상/하 89px 및 좌/우측 47px 영역이 아닌 중앙 영역에 배치하도록 제작','이미지 상단 및 좌/우 40px 영역, 하단 90px 영역에는 텍스트와 로고(CI, BI) 및 주요 오브젝트를 사용하지 않는 것 권장','노출 지면에 따라 이미지 내 하단 90px 영역에는 타이틀 및 행동유도문구 등의 요소가 구성될 수 있어 복잡한 요소를 사용하지 않는 것 권장'],
+        zh:['主要元素（文字、Logo、主体物等）需避开上/下89px与左/右47px区域，置于中央区域','建议图片上方及左/右40px区域、下方90px区域不使用文字、Logo(CI、BI)及主要主体物','根据投放版位，图片下方90px区域可能出现标题与行动引导文案，建议不使用复杂元素']
+      }
+    }
+  ];
+
+  const presets = [
+    { id:'05', ko:{tag:'매일 새로운 소싱 아이디어', head:'홈·리빙부터 뷰티까지, 도매가로 채우다', sub:'9월 한정 800만 개 이상 특가 상품 최대 20% 할인', cta:'카테고리 둘러보기'},
+             zh:{tag:'每日解锁采购新灵感', head:'从家居生活到美妆，批发价一站配齐', sub:'9月限时，超过800万件特价商品，最高优惠20%', cta:'探索品类'} },
+    { id:'06', ko:{tag:'차별화 제품 · 내 브랜드로', head:'더 다양한 기능과 디자인, 내 브랜드로 OEM 제작하다', sub:'소량 주문도 가능, 도매가는 그대로', cta:'OEM 제품 찾기'},
+             zh:{tag:'差异化产品 · 打造自有品牌', head:'更多功能与设计，通过OEM定制打造自有品牌', sub:'小批量也能下单，仍享批发价', cta:'寻找OEM产品'} },
+    { id:'07', ko:{tag:'전 세계 검증된 공급업체', head:'한국에 없는 다양한 제품, 도매가로 만나다', sub:'20만+ 공급업체와 직거래', cta:'제품 둘러보기'},
+             zh:{tag:'全球认证供应商', head:'采购韩国市场少见的多样产品，尽享批发价', sub:'与20万+供应商直接交易', cta:'浏览产品'} },
+    { id:'08', ko:{tag:'요즘 뜨는 인기 아이템', head:'인기 아이템을 한 번에, 도매가를 검색해보세요', sub:'9월 한정 800만 개 이상 특가 상품 최대 20% 할인', cta:'인기 제품 보기'},
+             zh:{tag:'当下热门单品', head:'热门单品一站搜索，批发价格轻松查', sub:'9月限时，超过800万件特价商品，最高优惠20%', cta:'查看热门产品'} },
+    { id:'09', ko:{tag:'', head:'매장에 필요한 모든 것, 도매가로 더 저렴하게', sub:'MOQ 1개부터 시작, 맞춤 제작까지 한 번에', cta:'지금 둘러보기'},
+             zh:{tag:'', head:'门店所需一站配齐，批发价采购更省钱', sub:'MOQ低至1件，定制生产一站搞定', cta:'立即浏览'} },
+    { id:'10', ko:{tag:'요즘 뜨는 인기 아이템', head:'트렌드 제품을 알리바바닷컴에서 먼저 소싱하다', sub:'9월 한정 800만 개 이상 특가 상품 최대 20% 할인', cta:'인기 제품 보기'},
+             zh:{tag:'当下热门单品', head:'抢先在Alibaba.com采购趋势产品', sub:'9月限时，超过800万件特价商品，最高优惠20%', cta:'查看热门产品'} },
+    { id:'11', ko:{tag:'', head:'감각을 완성하는 제품, 내 브랜드로 맞춤 제작', sub:'MOQ 1개부터 시작하세요', cta:'디자인 소품 찾기'},
+             zh:{tag:'', head:'彰显品味的产品，支持自有品牌定制', sub:'MOQ低至1件', cta:'寻找设计感好物'} },
+    { id:'12', ko:{tag:'2억 개 이상 제품', head:'도매가로 채우는 비즈니스, 지금 둘러보기', sub:'9월 한정 800만 개 이상 특가 상품 최대 20% 할인', cta:'제품 둘러보기'},
+             zh:{tag:'超过2亿件产品', head:'批发价采购，为生意轻松备货', sub:'9月限时，超过800万件特价商品，最高优惠20%', cta:'浏览产品'} }
+  ];
+
+  const I18N = {
+    ko: {
+      brandTitle:'Creative Template Studio', brandSub:'Alibaba.com · NAVER × Kakao DA 8개 구좌',
+      savePng:'PNG 저장', saveJpg:'JPG 저장',
+      guideBannerTitle:'구좌별 제작 가이드',
+      guideSource:'원본: Alibaba.com_네카오 소재 제작 가이드_260828.xlsx · KOP 시트 DA(image banner)',
+      chipMedia:'미디어', chipProduct:'상품 유형', chipSize:'소재 규격', chipFile:'파일 용량', chipFormat:'파일 포맷', chipText:'이미지 내 텍스트',
+      guideLine:'가이드라인 (원문)', safeZone:'세이프존 (원문)',
+      foldHide:'가이드 접기', foldShow:'가이드 펼치기',
+      noRule:'원문 표기 “-” · 별도 제작 제한 명시 없음', noSafe:'원문에 세이프존 규정 없음',
+      placementTitle:'광고 구좌 선택', filterAll:'전체',
+      sourceNote:'DA(image banner) 8개 구좌만 제공합니다. 원문에 없는 규정은 추가하지 않았습니다.',
+      customizeTitle:'소재 편집', accImage:'이미지 & 로고', accCopy:'카피', accStyle:'스타일', accGuide:'가이드 체크리스트', accExport:'내보내기',
+      uploadBg:'배경 이미지 업로드', uploadLogo:'로고 PNG 업로드', imageFit:'배경 맞춤', fitCover:'채우기', fitContain:'전체 보기',
+      copyPreset:'카피 프리셋 (세트 05–12)', tagline:'태그 라인', headline:'메인 카피', subline:'서브 카피', textShow:'텍스트 표시',
+      layout:'레이아웃', bgColor:'배경색', textColor:'글자색', fontSize:'메인 카피 크기', align:'정렬', alignLeft:'왼쪽', alignCenter:'가운데',
+      overlay:'이미지 음영', ovNone:'없음', ovSoft:'약하게', ovStrong:'강하게',
+      checklist:'선택 구좌 체크리스트', safeShow:'세이프존 표시', safeHide:'세이프존 숨김', safeNone:'세이프존 없음',
+      reset:'초기화', copyBrief:'제작 지시문 복사',
+      chars:n=>`${n}자`, presetLabel:id=>`세트 ${id}`,
+      pageDesc:s=>`${s.platform} · ${s.w} × ${s.h}px · 최대 ${s.maxLabel} · ${s.formats.join(' / ')}`,
+      sizeInit:'내보내기 전 예상 용량을 확인합니다.',
+      sizeStatus:(kb,max,ok)=>`PNG 예상 ${kb.toLocaleString()} KB / 제한 ${max} · ${ok?'통과':'용량 초과 가능'}`,
+      toastImage:'이미지가 적용되었습니다.', toastReset:'선택 구좌를 초기화했습니다.',
+      toastBrief:'제작 지시문을 복사했습니다.', toastBriefFail:'브라우저에서 복사를 허용해주세요.',
+      toastBig:'10MB 이하 이미지를 선택해주세요.', toastJpgOnly:'이 구좌는 PNG만 허용됩니다.',
+      toastSaved:kb=>`저장 완료 · ${kb}KB`, toastSavedOver:kb=>`저장 완료 · ${kb}KB로 가이드 제한을 초과할 수 있습니다.`,
+      toastLang:'한국어 버전으로 전환했습니다.',
+      briefSafeNone:'세이프존: 원문 규정 없음',
+      briefLabels:{size:'규격', file:'파일', text:'이미지 내 텍스트', safe:'세이프존', tag:'태그 라인', head:'메인 카피', sub:'서브 카피', cta:'CTA', guide:'가이드라인'}
+    },
+    zh: {
+      brandTitle:'创意模板工作台', brandSub:'Alibaba.com · NAVER × Kakao 8个DA版位',
+      savePng:'保存PNG', saveJpg:'保存JPG',
+      guideBannerTitle:'各版位制作规范',
+      guideSource:'来源：Alibaba.com_네카오 소재 제작 가이드_260828.xlsx · KOP工作表 DA(image banner)',
+      chipMedia:'媒体', chipProduct:'产品类型', chipSize:'素材尺寸', chipFile:'文件大小', chipFormat:'文件格式', chipText:'图内文字',
+      guideLine:'制作规范（原文）', safeZone:'安全区（原文）',
+      foldHide:'收起规范', foldShow:'展开规范',
+      noRule:'原文标注为“-”，未列出额外制作限制', noSafe:'原文未列出安全区规定',
+      placementTitle:'选择广告版位', filterAll:'全部',
+      sourceNote:'仅提供DA(image banner)的8个版位。未添加原文之外的规定。',
+      customizeTitle:'素材编辑', accImage:'图片与Logo', accCopy:'文案', accStyle:'样式', accGuide:'规范清单', accExport:'导出',
+      uploadBg:'上传背景图', uploadLogo:'上传Logo PNG', imageFit:'背景适配', fitCover:'填充', fitContain:'完整显示',
+      copyPreset:'文案预设（第05–12套）', tagline:'标签文案', headline:'主文案', subline:'副文案', textShow:'显示文字',
+      layout:'版式', bgColor:'背景色', textColor:'文字颜色', fontSize:'主文案字号', align:'对齐', alignLeft:'左对齐', alignCenter:'居中',
+      overlay:'图片压暗', ovNone:'无', ovSoft:'轻微', ovStrong:'较强',
+      checklist:'当前版位检查清单', safeShow:'显示安全区', safeHide:'隐藏安全区', safeNone:'无安全区',
+      reset:'重置', copyBrief:'复制制作说明',
+      chars:n=>`${n}字`, presetLabel:id=>`第${id}套`,
+      pageDesc:s=>`${s.platform} · ${s.w} × ${s.h}px · 最大 ${s.maxLabel} · ${s.formats.join(' / ')}`,
+      sizeInit:'导出前请确认预估文件大小。',
+      sizeStatus:(kb,max,ok)=>`PNG预估 ${kb.toLocaleString()} KB / 限制 ${max} · ${ok?'通过':'可能超出限制'}`,
+      toastImage:'图片已应用。', toastReset:'已重置当前版位。',
+      toastBrief:'已复制制作说明。', toastBriefFail:'请允许浏览器访问剪贴板。',
+      toastBig:'请选择10MB以内的图片。', toastJpgOnly:'该版位仅支持PNG。',
+      toastSaved:kb=>`保存完成 · ${kb}KB`, toastSavedOver:kb=>`保存完成 · ${kb}KB，可能超出规范限制。`,
+      toastLang:'已切换为中文版本。',
+      briefSafeNone:'安全区：原文无规定',
+      briefLabels:{size:'尺寸', file:'文件', text:'图内文字', safe:'安全区', tag:'标签文案', head:'主文案', sub:'副文案', cta:'CTA', guide:'制作规范'}
+    }
+  };
+
+  const $ = id => document.getElementById(id);
+  const canvas = $('adCanvas');
+  const ctx = canvas.getContext('2d');
+  const state = {
+    lang:'ko', slot:slots[0], filter:'all', preset:presets[0], style:'editorial', safe:true, showText:true,
+    guideFolded:false,
+    bgImage:null, logoImage:null, fit:'cover',
+    tagline:'', headline:'', subline:'', cta:'',
+    bg:'#ffffff', text:'#171717', fontSize:72, align:'left', overlay:0
+  };
+  const t = () => I18N[state.lang];
+  const L = v => (v && typeof v === 'object' && !Array.isArray(v)) ? (v[state.lang] || v.ko) : v;
+
+  function escapeText(text) { return String(text).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m])); }
+  function defaultFont(slot) { return Math.max(14, Math.round(Math.min(slot.w, slot.h) * .085)); }
+  function roundRect(c,x,y,w,h,r,fill) {
+    const rr = Math.min(r,w/2,h/2); c.beginPath(); c.roundRect(x,y,w,h,rr);
+    if(fill){ c.fillStyle=fill; c.fill(); }
+  }
+  function coverImage(c,img,x,y,w,h,mode='cover') {
+    const ir=img.width/img.height, tr=w/h; let dw,dh;
+    if((mode==='cover' && ir>tr)||(mode==='contain' && ir<tr)){ dh=h; dw=h*ir; } else { dw=w; dh=w/ir; }
+    c.drawImage(img,x+(w-dw)/2,y+(h-dh)/2,dw,dh);
+  }
+  function wrapLines(c,text,maxWidth,maxLines) {
+    const lines=[]; let line='';
+    [...String(text)].forEach(ch=>{ const test=line+ch; if(c.measureText(test).width>maxWidth && line){ lines.push(line); line=ch.trim()?ch:''; } else line=test; });
+    if(line) lines.push(line);
+    if(lines.length>maxLines){
+      const kept=lines.slice(0,maxLines);
+      while(kept[maxLines-1].length>1 && c.measureText(kept[maxLines-1]+'…').width>maxWidth) kept[maxLines-1]=kept[maxLines-1].slice(0,-1);
+      kept[maxLines-1]+='…'; return kept;
+    }
+    return lines;
+  }
+  function drawDefaultVisual(c,w,h) {
+    const g=c.createLinearGradient(0,0,w,h); g.addColorStop(0,state.bg); g.addColorStop(1,'#ffe3cd'); c.fillStyle=g; c.fillRect(0,0,w,h);
+    const s=Math.min(w,h);
+    c.save(); c.globalAlpha=.94;
+    c.fillStyle='#ff6a00'; c.beginPath(); c.arc(w*.82,h*.18,s*.22,0,Math.PI*2); c.fill();
+    c.fillStyle='#ffffff'; c.beginPath(); c.arc(w*.79,h*.20,s*.12,0,Math.PI*2); c.fill();
+    c.fillStyle='#ffd0ae'; c.beginPath(); c.arc(w*.88,h*.73,s*.28,0,Math.PI*2); c.fill();
+    c.fillStyle='#171717'; c.beginPath(); c.arc(w*.97,h*.78,s*.11,0,Math.PI*2); c.fill();
+    c.restore();
+    if(state.style==='split'){ c.fillStyle='rgba(255,255,255,.78)'; c.fillRect(0,0,w*.56,h); }
+    if(state.style==='minimal'){ c.fillStyle=state.bg; c.fillRect(0,0,w,h); c.strokeStyle='#ff6a00'; c.lineWidth=Math.max(4,s*.012); c.strokeRect(s*.06,s*.06,w-s*.12,h-s*.12); }
+  }
+  function drawCopy(c,w,h) {
+    if(!state.showText) return;
+    const s=state.slot;
+    const safe=s.safe || {t:h*.07,r:w*.07,b:h*.07,l:w*.07};
+    const short=Math.min(w,h);
+    const x0=Math.max(w*.06,safe.l+short*.022);
+    const centered=state.align==='center';
+    const columnLimit=centered ? w*.9 : (w/h>=1.4 ? w*.54 : w*.76);
+    const x1=Math.min(columnLimit,w-safe.r-short*.022);
+    const usable=Math.max(w*.32,x1-x0);
+    const fontPx=s.textRange ? Math.min(s.textRange[1],Math.max(s.textRange[0],state.fontSize)) : state.fontSize;
+    const tx=centered?w/2:x0;
+    let y=Math.max(h*.11,safe.t+short*.035);
+    c.save(); c.textAlign=centered?'center':'left'; c.textBaseline='top';
+    if(state.tagline){
+      const ts=Math.max(11,fontPx*.30); c.font=`800 ${ts}px Pretendard, Arial, sans-serif`;
+      const tw=c.measureText(state.tagline).width, padX=ts*.72, bh=ts*2;
+      const bx=centered?tx-(tw+padX*2)/2:tx;
+      roundRect(c,bx,y,tw+padX*2,bh,bh/2,'#fff1e8');
+      c.fillStyle='#e85d00'; c.textBaseline='middle'; c.fillText(state.tagline,centered?tx:bx+padX,y+bh/2);
+      c.textBaseline='top'; y+=bh+fontPx*.28;
+    }
+    c.fillStyle=state.text; c.font=`900 ${fontPx}px Pretendard, Arial, sans-serif`;
+    const lines=wrapLines(c,state.headline,centered?Math.min(w*.8,usable):usable,s.maxLines||4);
+    const lh=fontPx*1.16; lines.forEach((line,i)=>c.fillText(line,tx,y+i*lh));
+    let cursor=y+lines.length*lh;
+    if(state.subline){
+      cursor+=fontPx*.3;
+      c.save(); c.globalAlpha=.72; c.font=`650 ${Math.max(12,fontPx*.34)}px Pretendard, Arial, sans-serif`;
+      const subLines=wrapLines(c,state.subline,centered?Math.min(w*.8,usable):usable,2);
+      const slh=Math.max(12,fontPx*.34)*1.34;
+      subLines.forEach((line,i)=>c.fillText(line,tx,cursor+i*slh));
+      c.restore(); cursor+=subLines.length*slh;
+    }
+    if(state.cta){
+      const cs=Math.max(11,fontPx*.28); c.font=`800 ${cs}px Pretendard, Arial, sans-serif`;
+      const tw=c.measureText(state.cta).width, padX=cs*.95, bh=cs*2.3;
+      const bx=centered?tx-(tw+padX*2)/2:tx, by=cursor+fontPx*.42;
+      roundRect(c,bx,by,tw+padX*2,bh,bh/2,'#ff6a00');
+      c.fillStyle='#ffffff'; c.textBaseline='middle'; c.fillText(state.cta,centered?tx:bx+padX,by+bh/2);
+    }
+    c.restore();
+  }
+  function drawSafe(c,w,h) {
+    const s=state.slot.safe; if(!state.safe || !s) return;
+    c.save(); c.strokeStyle='rgba(224,49,49,.95)'; c.lineWidth=Math.max(2,Math.min(w,h)*.004);
+    c.setLineDash([Math.max(8,w*.012),Math.max(6,w*.008)]);
+    c.strokeRect(s.l,s.t,w-s.l-s.r,h-s.t-s.b); c.setLineDash([]);
+    c.fillStyle='rgba(224,49,49,.88)'; c.font=`800 ${Math.max(13,Math.min(w,h)*.022)}px Arial, sans-serif`;
+    c.textBaseline='top'; c.fillText('SAFE ZONE',s.l+10,s.t+8);
+    if(s.ui){
+      const uw=Math.max(w*.22,150), uh=Math.max(h*.1,55);
+      c.fillStyle='rgba(224,49,49,.12)'; c.fillRect(w-uw,h-uh,uw,uh);
+      c.fillStyle='rgba(185,28,28,.9)'; c.textAlign='right'; c.textBaseline='bottom'; c.fillText('AD UI',w-12,h-10);
+    }
+    c.restore();
+  }
+  function render() {
+    const s=state.slot; canvas.width=s.w; canvas.height=s.h; ctx.clearRect(0,0,s.w,s.h);
+    if(state.bgImage){ ctx.fillStyle=state.bg; ctx.fillRect(0,0,s.w,s.h); coverImage(ctx,state.bgImage,0,0,s.w,s.h,state.fit); }
+    else drawDefaultVisual(ctx,s.w,s.h);
+    if(state.overlay>0){ ctx.fillStyle=`rgba(0,0,0,${state.overlay})`; ctx.fillRect(0,0,s.w,s.h); }
+    drawCopy(ctx,s.w,s.h);
+    if(state.logoImage){
+      const maxW=s.w*.20, maxH=s.h*.09, r=state.logoImage.width/state.logoImage.height;
+      let dw=maxW, dh=dw/r; if(dh>maxH){ dh=maxH; dw=dh*r; }
+      ctx.drawImage(state.logoImage,s.w*.055,s.h*.05,dw,dh);
+    }
+    drawSafe(ctx,s.w,s.h);
+    $('canvasChip').textContent=`${s.w} × ${s.h} px`;
+    updateSizeEstimate();
+  }
+  function ratioStyle(s){ const scale=25/Math.max(s.w,s.h); return `width:${Math.max(9,s.w*scale)}px;height:${Math.max(9,s.h*scale)}px`; }
+  function renderFormats(){
+    const visible=slots.filter(s=>state.filter==='all'||s.platform===state.filter);
+    $('formatList').innerHTML=visible.map(s=>`<button class="format-card ${s.id===state.slot.id?'active':''}" data-id="${s.id}" type="button" ${s.id===state.slot.id?'aria-current="true"':''}><span class="format-thumb"><span class="mini-ratio" style="${ratioStyle(s)}"></span></span><span><span class="format-name">${escapeText(L(s.name))}</span><span class="format-meta">${s.w}×${s.h} · ${s.maxLabel}</span></span><span class="platform-badge ${s.platform.toLowerCase()}">${s.platform}</span></button>`).join('');
+    $('formatList').querySelectorAll('.format-card').forEach(b=>b.addEventListener('click',()=>selectSlot(b.dataset.id)));
+  }
+  function renderMobile(){
+    $('mobileSlot').innerHTML=slots.map(s=>`<option value="${s.id}">${escapeText(L(s.name))} · ${s.w}×${s.h}</option>`).join('');
+    $('mobileSlot').value=state.slot.id;
+  }
+  function renderPresets(){
+    $('copyPreset').innerHTML=presets.map(p=>`<option value="${p.id}">${escapeText(t().presetLabel(p.id))} · ${escapeText(p[state.lang].head)}</option>`).join('');
+    $('copyPreset').value=state.preset.id;
+  }
+  function renderBanner(){
+    const s=state.slot;
+    $('guideSlotName').textContent=`${L(s.name)} (${s.w}×${s.h})`;
+    $('chipMedia').textContent=s.media;
+    $('chipProduct').textContent=L(s.product);
+    $('chipSize').textContent=`${s.w} × ${s.h} px`;
+    $('chipFile').textContent=s.maxLabel;
+    $('chipFormat').textContent=s.formats.join(', ').toLowerCase();
+    $('chipText').textContent=L(s.textRule);
+    const guides=L(s.guides)||[], safes=L(s.safeText)||[];
+    $('bannerGuideList').innerHTML=guides.map(g=>`<li>${escapeText(g)}</li>`).join('');
+    $('bannerGuideNone').hidden=guides.length>0;
+    $('bannerSafeList').innerHTML=safes.map(g=>`<li>${escapeText(g)}</li>`).join('');
+    $('bannerSafeNone').hidden=safes.length>0;
+    $('guideList').innerHTML=(guides.length?guides:[t().noRule]).concat(safes).map(g=>`<li>${escapeText(g)}</li>`).join('');
+  }
+  function updateCounts(){
+    $('headlineCount').textContent=t().chars($('headline').value.length);
+    $('sublineCount').textContent=t().chars($('subline').value.length);
+  }
+  function applyPreset(preset){
+    state.preset=preset;
+    const copy=preset[state.lang];
+    state.tagline=copy.tag; state.headline=copy.head; state.subline=copy.sub; state.cta=copy.cta;
+    $('tagline').value=copy.tag; $('headline').value=copy.head; $('subline').value=copy.sub; $('cta').value=copy.cta;
+    updateCounts();
+  }
+  function selectSlot(id){
+    const next=slots.find(s=>s.id===id); if(!next) return;
+    state.slot=next; state.safe=true; state.showText=next.defaultText!==false;
+    $('textToggle').classList.toggle('on',state.showText); $('textToggle').setAttribute('aria-checked',String(state.showText));
+    const min=next.textRange?next.textRange[0]:14, max=next.textRange?next.textRange[1]:Math.round(Math.min(next.w,next.h)*.45);
+    $('fontSize').min=min; $('fontSize').max=max;
+    state.fontSize=next.textRange?Math.min(max,Math.max(min,72)):Math.min(max,Math.max(min,defaultFont(next)));
+    $('fontSize').value=state.fontSize; $('fontSizeValue').textContent=state.fontSize+'px';
+    $('pageTitle').textContent=L(next.name);
+    $('pageDesc').textContent=t().pageDesc(next);
+    $('specPlatform').textContent=next.platform; $('specSize').textContent=`${next.w} × ${next.h} px`;
+    $('specMax').textContent=next.maxLabel; $('specFormat').textContent=next.formats.join(' / ');
+    $('safeToggle').disabled=!next.safe;
+    $('safeToggle').setAttribute('aria-pressed','true');
+    $('safeToggle').textContent=next.safe?t().safeShow:t().safeNone;
+    $('downloadJpg').disabled=!next.formats.includes('JPG');
+    renderBanner(); renderFormats(); renderMobile(); render();
+  }
+  function syncFold(){
+    document.querySelector('.guide-banner').classList.toggle('folded',state.guideFolded);
+    const btn=$('guideFold');
+    btn.setAttribute('aria-expanded',String(!state.guideFolded));
+    btn.textContent=state.guideFolded?t().foldShow:t().foldHide;
+  }
+  function applyLang(lang){
+    state.lang=lang;
+    document.documentElement.lang=lang==='zh'?'zh-CN':'ko';
+    document.querySelectorAll('[data-i18n]').forEach(el=>{ const v=t()[el.dataset.i18n]; if(typeof v==='string') el.textContent=v; });
+    syncFold();
+    document.querySelectorAll('.lang-tab').forEach(b=>{ const active=b.dataset.lang===lang; b.classList.toggle('active',active); b.setAttribute('aria-selected',String(active)); });
+    applyPreset(state.preset);
+    renderPresets(); renderBanner(); renderFormats(); renderMobile();
+    $('pageTitle').textContent=L(state.slot.name);
+    $('pageDesc').textContent=t().pageDesc(state.slot);
+    $('safeToggle').textContent=state.slot.safe?(state.safe?t().safeShow:t().safeHide):t().safeNone;
+    render(); showToast(t().toastLang);
+  }
+  function readImage(input,key){
+    const file=input.files&&input.files[0]; if(!file) return;
+    if(file.size>10*1024*1024){ showToast(t().toastBig); input.value=''; return; }
+    const reader=new FileReader();
+    reader.onload=()=>{ const img=new Image(); img.onload=()=>{ state[key]=img; render(); showToast(t().toastImage); }; img.src=reader.result; };
+    reader.readAsDataURL(file);
+  }
+  function updateSizeEstimate(){
+    canvas.toBlob(blob=>{
+      if(!blob) return;
+      const kb=Math.ceil(blob.size/1024), ok=kb<=state.slot.maxKB, el=$('sizeStatus');
+      el.className='size-status '+(ok?'ok':'bad');
+      el.textContent=t().sizeStatus(kb,state.slot.maxLabel,ok);
+    },'image/png');
+  }
+  function fileName(ext){
+    const clean=state.slot.id;
+    return `alibaba-${clean}-${state.slot.w}x${state.slot.h}-set${state.preset.id}-${state.lang}.${ext}`;
+  }
+  function exportImage(type){
+    if(type==='jpeg'&&!state.slot.formats.includes('JPG')){ showToast(t().toastJpgOnly); return; }
+    const oldSafe=state.safe; state.safe=false; render();
+    canvas.toBlob(blob=>{
+      state.safe=oldSafe; render(); if(!blob) return;
+      const kb=Math.ceil(blob.size/1024);
+      showToast(kb>state.slot.maxKB?t().toastSavedOver(kb):t().toastSaved(kb));
+      const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=fileName(type==='jpeg'?'jpg':'png'); a.click();
+      setTimeout(()=>URL.revokeObjectURL(a.href),1500);
+    },type==='jpeg'?'image/jpeg':'image/png',.9);
+  }
+  function showToast(message){
+    const el=$('toast'); el.textContent=message; el.classList.add('show');
+    clearTimeout(showToast.timer); showToast.timer=setTimeout(()=>el.classList.remove('show'),2200);
+  }
+  function syncColor(source,target,key){
+    const value=source.value.trim();
+    if(/^#[0-9a-f]{6}$/i.test(value)){ state[key]=value; target.value=value; render(); }
+  }
+  function reset(){
+    Object.assign(state,{ style:'editorial', safe:true, showText:state.slot.defaultText!==false, bgImage:null, logoImage:null, fit:'cover', bg:'#ffffff', text:'#171717', align:'left', overlay:0 });
+    applyPreset(state.preset);
+    $('bgColor').value=state.bg; $('bgHex').value=state.bg.toUpperCase();
+    $('textColor').value=state.text; $('textHex').value=state.text.toUpperCase();
+    $('align').value='left'; $('overlay').value='0'; $('imageFit').value='cover';
+    $('bgUpload').value=''; $('logoUpload').value='';
+    $('textToggle').classList.toggle('on',state.showText); $('textToggle').setAttribute('aria-checked',String(state.showText));
+    $('safeToggle').setAttribute('aria-pressed','true'); $('safeToggle').textContent=state.slot.safe?t().safeShow:t().safeNone;
+    document.querySelectorAll('.style-button').forEach(b=>{ const active=b.dataset.style==='editorial'; b.classList.toggle('active',active); b.setAttribute('aria-pressed',String(active)); });
+    render(); showToast(t().toastReset);
+  }
+  function copyBrief(){
+    const s=state.slot, lb=t().briefLabels;
+    const safes=L(s.safeText)||[], guides=L(s.guides)||[];
+    const safeLine=s.safe
+      ? `${lb.safe}: ${s.safe.t}/${s.safe.r}/${s.safe.b}/${s.safe.l}px (T/R/B/L)\n  - ${safes.join('\n  - ')}`
+      : t().briefSafeNone;
+    const brief=[
+      `[${s.media} · ${L(s.product)} · ${L(s.name)}]`,
+      `${lb.size}: ${s.w}×${s.h}px`,
+      `${lb.file}: ${s.formats.join('/')} · max ${s.maxLabel}`,
+      `${lb.text}: ${L(s.textRule)}`,
+      safeLine,
+      `${lb.guide}: ${guides.length?guides.join(' / '):t().noRule}`,
+      `${lb.tag}: ${state.tagline||'-'}`,
+      `${lb.head}: ${state.headline}`,
+      `${lb.sub}: ${state.subline}`,
+      `${lb.cta}: ${state.cta}`
+    ].join('\n');
+    const fallback=()=>{
+      const ta=document.createElement('textarea');
+      ta.value=brief;
+      ta.setAttribute('readonly','');
+      ta.style.cssText='position:fixed;top:0;left:0;opacity:0;pointer-events:none';
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0,brief.length);
+      let ok=false;
+      try { ok=document.execCommand('copy'); } catch(e) { ok=false; }
+      ta.remove();
+      showToast(ok?t().toastBrief:t().toastBriefFail);
+    };
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(brief).then(()=>showToast(t().toastBrief)).catch(fallback);
+    } else {
+      fallback();
+    }
+  }
+
+  $('guideFold').addEventListener('click',()=>{ state.guideFolded=!state.guideFolded; syncFold(); });
+  $('langTabs').addEventListener('click',e=>{ const b=e.target.closest('.lang-tab'); if(!b||b.dataset.lang===state.lang) return; applyLang(b.dataset.lang); });
+  $('platformFilter').addEventListener('click',e=>{
+    const b=e.target.closest('.segment'); if(!b) return;
+    state.filter=b.dataset.filter;
+    document.querySelectorAll('.segment').forEach(x=>{ const active=x===b; x.classList.toggle('active',active); x.setAttribute('aria-selected',String(active)); });
+    renderFormats();
+  });
+  $('mobileSlot').addEventListener('change',e=>selectSlot(e.target.value));
+  $('copyPreset').addEventListener('change',e=>{ const p=presets.find(x=>x.id===e.target.value); if(p){ applyPreset(p); render(); } });
+  $('bgUpload').addEventListener('change',e=>readImage(e.target,'bgImage'));
+  $('logoUpload').addEventListener('change',e=>readImage(e.target,'logoImage'));
+  $('imageFit').addEventListener('change',e=>{ state.fit=e.target.value; render(); });
+  ['tagline','headline','subline','cta'].forEach(id=>$(id).addEventListener('input',e=>{ state[id]=e.target.value; updateCounts(); render(); }));
+  $('textToggle').addEventListener('click',e=>{ state.showText=!state.showText; e.currentTarget.classList.toggle('on',state.showText); e.currentTarget.setAttribute('aria-checked',String(state.showText)); render(); });
+  document.querySelectorAll('.style-button').forEach(b=>b.addEventListener('click',()=>{
+    state.style=b.dataset.style;
+    document.querySelectorAll('.style-button').forEach(x=>{ const active=x===b; x.classList.toggle('active',active); x.setAttribute('aria-pressed',String(active)); });
+    render();
+  }));
+  $('bgColor').addEventListener('input',e=>{ state.bg=e.target.value; $('bgHex').value=e.target.value.toUpperCase(); render(); });
+  $('bgHex').addEventListener('change',()=>syncColor($('bgHex'),$('bgColor'),'bg'));
+  $('textColor').addEventListener('input',e=>{ state.text=e.target.value; $('textHex').value=e.target.value.toUpperCase(); render(); });
+  $('textHex').addEventListener('change',()=>syncColor($('textHex'),$('textColor'),'text'));
+  $('fontSize').addEventListener('input',e=>{ state.fontSize=+e.target.value; $('fontSizeValue').textContent=e.target.value+'px'; render(); });
+  $('align').addEventListener('change',e=>{ state.align=e.target.value; render(); });
+  $('overlay').addEventListener('change',e=>{ state.overlay=+e.target.value; render(); });
+  $('safeToggle').addEventListener('click',e=>{ state.safe=!state.safe; e.currentTarget.setAttribute('aria-pressed',String(state.safe)); e.currentTarget.textContent=state.safe?t().safeShow:t().safeHide; render(); });
+  $('resetBtn').addEventListener('click',reset);
+  $('copyBrief').addEventListener('click',copyBrief);
+  $('downloadPng').addEventListener('click',()=>exportImage('png'));
+  $('downloadJpg').addEventListener('click',()=>exportImage('jpeg'));
+  $('topDownload').addEventListener('click',()=>exportImage('png'));
+  document.querySelectorAll('.accordion-head').forEach(head=>head.addEventListener('click',()=>{
+    const body=head.nextElementSibling, open=head.getAttribute('aria-expanded')==='true';
+    head.setAttribute('aria-expanded',String(!open)); head.lastElementChild.textContent=open?'+':'−'; body.hidden=open;
+  }));
+
+  $('sizeStatus').textContent=I18N.ko.sizeInit;
+  applyPreset(presets[0]);
+  renderPresets();
+  selectSlot(slots[0].id);
+})();
+</script>
+</body>
+</html>
