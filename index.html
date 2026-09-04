@@ -1342,7 +1342,9 @@
     $('labelToggle').classList.add('on'); $('labelToggle').setAttribute('aria-checked', 'true');
     $('textToggle').classList.toggle('on', state.showText); $('textToggle').setAttribute('aria-checked', String(state.showText));
     $('safeToggle').setAttribute('aria-pressed', 'true'); $('safeToggle').textContent = state.slot.safe ? t().safeShow : t().safeNone;
-    render(); showToast(t().toastReset);
+    render();
+    void loadAllProducts();
+    showToast(t().toastReset);
   }
   function copyBrief() {
     const s = state.slot, lb = t().briefLabels;
